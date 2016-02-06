@@ -2,18 +2,26 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
     {% block stylesheets %}
         <link href="{{ asset('dashboard/css/main.css') }}" rel="stylesheet"/>
     {% endblock %}
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
 <body>
-
-<div id="dashboard_containter">
-    <p class="block_text">
-    <h1>Hello {{ pass_name }}!</h1>
-    </p>
+<div id="bg_placeholder">
+<div id="global_container">
+    <div id="dashboard_header_title">
+        <img id="account_dashboard_icon" src="{{ asset('dashboard/images/header_title_icon.jpg') }}" alt="account dashboard icon">
+        <h1 class="dashboard_header_title_text">Login To Your Account / Register New</h1>
+    </div>
+    <div id="dashboard_containter">
+        <p class="block_text">
+        <h1>Hello {{ pass_name }}!</h1>
+        </p>
+    </div>
+</div>
 </div>
 </body>
 </html>
