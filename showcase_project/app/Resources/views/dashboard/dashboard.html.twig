@@ -3,8 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>dashboard</title>
+    {% block stylesheets %}
+        <link href="{{ asset('dashboard/css/main.css') }}" rel="stylesheet"/>
+    {% endblock %}
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
 <body>
-<h1>Hello {{ pass_name  }}!</h1>
+
+<div id="dashboard_containter">
+    <p class="block_text">
+    <h1>Hello {{ pass_name }}!</h1>
+    </p>
+</div>
 </body>
 </html>
