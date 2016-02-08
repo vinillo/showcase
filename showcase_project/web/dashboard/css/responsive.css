@@ -1,0 +1,21 @@
+@media screen and (max-width: 840px) {
+    #account_lwf , .input_password, .input_username ,.ul_login {
+        padding: 0;
+    }
+    #dashboard_left_col {
+        float: none;
+        margin-right: 0;
+        width: auto;
+    }
+
+    #dashboard_right_col {
+        float: none;
+        margin-right: 0;
+        width: auto;
+    }
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}

@@ -2,10 +2,16 @@ body {
 
     background-image: url(../images/bg_repeat.png);
     background-repeat: repeat;
-    font-family: "Open Sans";
-    font-size: 100%;
-}
+    font-family: 'Source Sans Pro', sans-serif;
 
+}
+li {
+    list-style-type: none;
+}
+img {
+    border: none;
+
+}
 #bg_placeholder {
 
     background: url(../images/bg.png);
@@ -20,10 +26,7 @@ body {
 
 }
 
-img {
-    border: none;
 
-}
 #global_container {
 
     max-width: 815px;
@@ -41,7 +44,7 @@ img {
     border-left: solid #cecece 1px;
     border-right: solid #cecece 1px;
     border-bottom: solid #cecece 1px;
-    height: 450px;
+    min-height: 450px;
     -webkit-border-radius: 10px 10px 10px 10px;
     border-radius: 0px 0px 10px 10px;
     float: left;
@@ -52,7 +55,7 @@ img {
 
 #dashboard_header_title {
     background-color: #81afc5;
-    height: 120px;
+    min-height: 120px;
     border-radius: 10px 10px 0px 0px;
     float: left;
     max-width: 940px;
@@ -64,7 +67,8 @@ img {
 #dashboard_header_title img {
     float: left;
     padding: 5px;
-    padding-top: 25px;
+    display: inline-block;
+    vertical-align: top;
 }
 #dashboard_header_title h1 {
     padding-left: 10px;
@@ -72,14 +76,11 @@ img {
 }
 #dashboard_containter p {
     padding: 0 0 0 0px;
-    text-align: center !important;
 }
-#dashboard_containter h1 {
-    padding-left: 30px;
 
-}
 .dashboard_header_title_text {
     color: #ffffff;
+    font-size: 36px;
 }
 #account_dashboard_icon  {
     max-width: 100%;
@@ -91,9 +92,66 @@ img {
     width: 100%;
 }
 
-/* Mobile styles */
-@media only screen and (max-width: 450px) {
-    .dashboard_header_title_text {
-        font-size: 10px !important;
-    }
+#dashboard_left_col {
+    float: left;
+    width: 50%;
+    min-height: 250px;
+}
+#dashboard_right_col {
+    float: left;
+    width: 50%;
+    min-height: 250px;
+}
+#account_lwf {
+    padding-left: 20px;
+}
+
+#account_lwf:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+.input_password, .input_username {
+    height: 50px;
+    background-color: #ffffff;
+    -webkit-border-radius: 7px 7px 7px 7px;
+    border-radius: 7px 7px 7px 7px;
+    max-width: 335px;
+    width: 100%;
+    border: 1px #dcdcdc solid;
+    padding-left: 20px;
+    color: #e9e9e9;
+    text-transform: capitalize;
+    font-size: 16px;
+}
+.ul_login li {
+    padding-top: 5px;
+}
+.ul_login_actions li {
+    display: inline;
+    float: left;
+    padding: 0;
+    margin: 0;
+}
+.li_remember {
+    color: #cbcbcb;
+    font-size: 16px;
+    line-height: 3;
+}
+.button_fancy {
+    background-color:#00a0bc ;
+    border: 0;
+    color:#FFFFFF;
+    font-size: 25px;
+    -webkit-border-radius: 7px 7px 7px 7px;
+    border-radius: 7px 7px 7px 7px;
+    width: 160px;
+    min-height: 50px;
+
+}
+.button_fancy:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+.ul_login_actions  .button_fancy {
+   margin-left: 5px;
 }
