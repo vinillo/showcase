@@ -1,7 +1,9 @@
 @media screen and (max-width: 840px) {
-    #account_lwf , .input_password, .input_username ,.ul_login {
+    #account_lwf, .input_password, .input_username, .ul_login, #hor_tussenstuk {
         padding: 0;
+        margin: 0;
     }
+
     #dashboard_left_col {
         float: none;
         margin-right: 0;
@@ -12,6 +14,11 @@
         float: none;
         margin-right: 0;
         width: auto;
+    }
+
+    #hor_tussenstuk {
+        display: none;
+        visibility: hidden;
     }
 }
 

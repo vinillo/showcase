@@ -1,21 +1,22 @@
 body {
-
     background-image: url(../images/bg_repeat.png);
     background-repeat: repeat;
     font-family: 'Source Sans Pro', sans-serif;
-
 }
+
 li {
     list-style-type: none;
 }
+
 img {
     border: none;
 
 }
+
 #bg_placeholder {
 
     background: url(../images/bg.png);
-    background-repeat:no-repeat;
+    background-repeat: no-repeat;
     top: 25%;
     height: 1103px;
     max-width: 1114px;
@@ -26,17 +27,16 @@ img {
 
 }
 
-
 #global_container {
 
     max-width: 815px;
     width: 100%;
     position: absolute;
-    left:0;
-    right:0;
-    margin-top:25%;
-    margin-left:auto;
-    margin-right:auto;
+    left: 0;
+    right: 0;
+    margin-top: 25%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #dashboard_containter {
@@ -64,16 +64,19 @@ img {
     border-right: 1px solid #81afc5;
     border-top: 1px solid #81afc5;
 }
+
 #dashboard_header_title img {
     float: left;
     padding: 5px;
     display: inline-block;
     vertical-align: top;
 }
+
 #dashboard_header_title h1 {
     padding-left: 10px;
     float: left;
 }
+
 #dashboard_containter p {
     padding: 0 0 0 0px;
 }
@@ -82,10 +85,12 @@ img {
     color: #ffffff;
     font-size: 36px;
 }
-#account_dashboard_icon  {
+
+#account_dashboard_icon {
     max-width: 100%;
     height: auto;
 }
+
 .clearfix {
     clear: both;
     height: 1px;
@@ -97,19 +102,22 @@ img {
     width: 50%;
     min-height: 250px;
 }
+
 #dashboard_right_col {
     float: left;
     width: 50%;
     min-height: 250px;
 }
+
 #account_lwf {
-    padding-left: 20px;
+    padding-left: 65px;
 }
 
 #account_lwf:hover {
     opacity: 0.6;
     cursor: pointer;
 }
+
 .input_password, .input_username {
     height: 50px;
     background-color: #ffffff;
@@ -123,24 +131,32 @@ img {
     text-transform: capitalize;
     font-size: 16px;
 }
+
 .ul_login li {
-    padding-top: 5px;
+    padding-top: 25px;
 }
+
+.ul_login_actions {
+    margin-top: 55px;
+}
+
 .ul_login_actions li {
     display: inline;
     float: left;
     padding: 0;
     margin: 0;
 }
+
 .li_remember {
     color: #cbcbcb;
     font-size: 16px;
     line-height: 3;
 }
+
 .button_fancy {
-    background-color:#00a0bc ;
+    background-color: #00a0bc;
     border: 0;
-    color:#FFFFFF;
+    color: #FFFFFF;
     font-size: 25px;
     -webkit-border-radius: 7px 7px 7px 7px;
     border-radius: 7px 7px 7px 7px;
@@ -148,10 +164,90 @@ img {
     min-height: 50px;
 
 }
+
 .button_fancy:hover {
     opacity: 0.6;
     cursor: pointer;
 }
-.ul_login_actions  .button_fancy {
-   margin-left: 5px;
+
+.ul_login_actions .button_fancy {
+    margin-left: 5px;
+}
+
+#hor_tussenstuk {
+    margin-left: 20px;
+    margin-top: 25px;
+}
+
+#ver_tussenstuk {
+    float: left;
+    margin-top: 35px;
+}
+
+.ul_register_header li {
+    display: inline;
+}
+
+#li_title_register_text {
+    color: #8a8a8a;
+    font-weight: bold;
+
+}
+
+#li_profile_image_text {
+    color: #a7a7a7;
+    float: right;
+    padding-right: 5px;
+    font-size: 14px;
+    line-height: 0;
+}
+
+#thumb_profile_img:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.register_heading_text {
+    color: #a1a1a1;
+    font-weight: bold;
+    padding-bottom: 5px;
+
+}
+
+#input_submit_register {
+    background-color: #ffc334;
+    border: 0;
+    color: #FFFFFF;
+    font-size: 25px;
+    -webkit-border-radius: 7px 7px 7px 7px;
+    border-radius: 7px 7px 7px 7px;
+    width: 160px;
+    min-height: 50px;
+    float: right;
+    margin-top: 10px;
+    margin-right: 5px;
+}
+
+#input_submit_register:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.input_register {
+    height: 50px;
+    background-color: #ffffff;
+    -webkit-border-radius: 7px 7px 7px 7px;
+    border-radius: 7px 7px 7px 7px;
+    max-width: 335px;
+    width: 100%;
+    border: 1px #dcdcdc solid;
+    padding-left: 20px;
+    color: #e9e9e9;
+    text-transform: capitalize;
+    font-size: 16px;
+
+}
+
+#register_form {
+    margin-top: 75px;
 }

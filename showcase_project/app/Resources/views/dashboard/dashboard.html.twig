@@ -11,9 +11,7 @@
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700' rel='stylesheet' type='text/css'>
 </head>
 <body>
-
 <div id="bg_placeholder">
-
     <div id="global_container">
         <div id="dashboard_header_title">
             <h1 class="dashboard_header_title_text">
@@ -27,21 +25,42 @@
             <div id="dashboard_left_col">
                 <img id="account_lwf" src="{{ asset('dashboard/images/lwf_slice.png') }}"
                      alt="login with facebook" title="Login with Facebook">
-
+                <img id="hor_tussenstuk" src="{{ asset('dashboard/images/tussenstuk_hor_slice.png') }}"
+                     alt="dashboard hor line">
                 <form action="" method="post">
                     <ul class="ul_login">
                         <li><input class="input_username" type="text" value="User Name" name="username"></li>
                         <li><input class="input_password" type="password" value="Password" name="password"></li>
                     </ul>
 
-                <ul class="ul_login_actions">
-                    <li class="li_remember"><input type="checkbox"> Remember my password </li>
-                    <li><input type="submit" value="Login" class="button_fancy"> </li>
-                </ul>
+                    <ul class="ul_login_actions">
+                        <li class="li_remember"><input type="checkbox"> Remember my password</li>
+                        <li><input type="submit" value="Login" class="button_fancy"></li>
+                    </ul>
                 </form>
             </div>
             <div id="dashboard_right_col">
-                b
+                <img id="ver_tussenstuk" src="{{ asset('dashboard/images/tussenstuk_ver_slice.png') }}"
+                     alt="dashboard ver line">
+                <ul class="ul_register_header">
+                    <li id="li_title_register_text">Register</li>
+                    <li id="li_profile_image_text"><img id="thumb_profile_img" title="upload profile image"
+                                                        src="{{ asset('dashboard/images/upload_img.png') }}"
+                                                        alt="thumb profile image upload">
+                    </li>
+                </ul>
+                <form action="" method="post">
+                    <ul id="register_form">
+                        <li class="register_heading_text">Email</li>
+                        <li><input class="input_register" type="email" value="" name="email_register"></li>
+                        <li class="register_heading_text">User Name</li>
+                        <li><input class="input_register" type="text" value="" name="username_register"></li>
+                        <li class="register_heading_text">Password</li>
+                        <li><input class="input_register" type="password" value="" name="password_register"></li>
+                        <li><input id="input_submit_register" type="submit" value="Register" name="submit_register">
+                        </li>
+                    </ul>
+                </form>
             </div>
             </p>
         </div>
