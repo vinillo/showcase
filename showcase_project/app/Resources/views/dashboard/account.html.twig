@@ -9,7 +9,7 @@
     {% endblock %}
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700' rel='stylesheet' type='text/css'>
     <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-    <script>tinymce.init({selector: 'textarea'});</script>
+    <script>tinymce.init({selector: '.type_box' ,   encoding: 'xml'} );</script>
 </head>
 <body>
 <div id="bg_placeholder">
@@ -24,11 +24,12 @@
             <p class="block_text">
 
             <h3>Hello {{ username }} ! - <a href="{{ asset('logout') }}">logout</a></h3>
-
-            <div class="comment_boxie">{{ comment }}</div>
+            {% if comment is defined %}
+            <textarea class="comment_boxie">{{ comment }}</textarea>
+            {% endif %}
             <form action="" method="post">
 
-                <textarea name="comment">hello</textarea>
+                <textarea class="type_box" name="comment">hello</textarea>
                 <input type="submit" class="button_fancy" value="Comment">
             </form>
             </p>

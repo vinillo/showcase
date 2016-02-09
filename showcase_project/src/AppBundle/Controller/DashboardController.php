@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\User;
+use AppBundle\Entity\Comment;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class DashboardController extends Controller
@@ -34,8 +35,12 @@ class DashboardController extends Controller
         $session = new Session();
 
         if ($request->getMethod() == 'POST'):
+            $comment = new comment();
+        $comment->setTitle("test");
+        $comment->setBody($request->request->get('comment'));
 
-            $comment = wordwrap($request->request->get('comment'), 3000, "<br>");
+
+
 
         endif;
         $html = $this->container->get('templating')->render(
