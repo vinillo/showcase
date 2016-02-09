@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Account</title>
+    {% block stylesheets %}
+        <link href="{{ asset('dashboard/css/main.css') }}" rel="stylesheet"/>
+        <link href="{{ asset('dashboard/css/responsive.css') }}" rel="stylesheet"/>
+    {% endblock %}
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<div id="bg_placeholder">
+    <div id="global_container">
+        <div id="dashboard_header_title">
+            <h1 class="dashboard_header_title_text">
+                <img id="account_dashboard_icon" src="{{ asset('dashboard/images/header_title_icon.jpg') }}"
+                     alt="account dashboard icon">
+               Account</h1>
+        </div>
+        <div id="dashboard_containter">
+            <p class="block_text">
+
+        <h1>Hello {{ username }} ! - <a href="{{ asset('logout') }}">logout</a></h1>
+            </p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

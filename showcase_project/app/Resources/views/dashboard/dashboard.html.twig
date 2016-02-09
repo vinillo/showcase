@@ -9,6 +9,7 @@
         <link href="{{ asset('dashboard/css/responsive.css') }}" rel="stylesheet"/>
     {% endblock %}
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700' rel='stylesheet' type='text/css'>
+    <script src="{{ asset('dashboard/js/dropzone.js') }}"></script>
 </head>
 <body>
 <div id="bg_placeholder">
@@ -21,19 +22,19 @@
         </div>
         <div id="dashboard_containter">
             <p class="block_text">
-                <!-- Hello {{ pass_name }}!<br>-->
             <div id="dashboard_left_col">
                 <img id="account_lwf" src="{{ asset('dashboard/images/lwf_slice.png') }}"
                      alt="login with facebook" title="Login with Facebook">
                 <img id="hor_tussenstuk" src="{{ asset('dashboard/images/tussenstuk_hor_slice.png') }}"
                      alt="dashboard hor line">
-                <form action="" method="post">
+                <form action="{{ asset('/dashboard') }}" method="post">
                     <ul class="ul_login">
                         {% if error is defined %}
-                        <li class="li_error_msg">Ongeldige gebruikersnaam en/of wachtwoord.</li>
+                            <li class="li_error_msg">Ongeldige gebruikersnaam en/of wachtwoord.</li>
                         {% endif %}
                         <li><input class="input_username" type="text" value="User Name" name="username" required></li>
-                        <li><input class="input_password" type="password" value="Password" name="password" required></li>
+                        <li><input class="input_password" type="password" value="Password" name="password" required>
+                        </li>
                     </ul>
 
                     <ul class="ul_login_actions">
@@ -47,22 +48,27 @@
                      alt="dashboard ver line">
                 <ul class="ul_register_header">
                     <li id="li_title_register_text">Register</li>
-                    <li id="li_profile_image_text"><img id="thumb_profile_img" title="upload profile image"
-                                                        src="{{ asset('dashboard/images/upload_img.png') }}"
-                                                        alt="thumb profile image upload">
+                    <li id="li_profile_image_text">
+                        <img id="thumb_profile_img" title="upload profile image"
+                             src="{{ asset('dashboard/images/upload_img.png') }}"
+                             alt="thumb profile image upload">
                     </li>
                 </ul>
-                <form action="" method="post">
+                <form action="{{ asset('/dashboard') }}" method="post">
                     <ul id="register_form">
                         {% if error_register is defined %}
                             <li class="li_error_msg">Vul alle velden in aub.</li>
+                        {% endif %}
+                        {% if succes is defined %}
+                            <li class="li_success_msg">{{ succes }}</li>
                         {% endif %}
                         <li class="register_heading_text">Email</li>
                         <li><input class="input_register" type="email" value="" name="email_register" required></li>
                         <li class="register_heading_text">User Name</li>
                         <li><input class="input_register" type="text" value="" name="username_register" required></li>
                         <li class="register_heading_text">Password</li>
-                        <li><input class="input_register" type="password" value="" name="password_register" required></li>
+                        <li><input class="input_register" type="password" value="" name="password_register" required>
+                        </li>
                         <li><input id="input_submit_register" type="submit" value="Register" name="submit_register">
                         </li>
                     </ul>
