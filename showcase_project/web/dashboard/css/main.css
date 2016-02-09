@@ -133,7 +133,7 @@ img {
 }
 
 .ul_login li {
-    padding-top: 25px;
+    padding-top: 10px;
 }
 
 .ul_login_actions {
@@ -250,4 +250,7 @@ img {
 
 #register_form {
     margin-top: 75px;
+}
+.li_error_msg {
+    color: #C82829;
 }
