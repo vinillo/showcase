@@ -48,6 +48,7 @@ class User
     {
         $this->id = $id;
     }
+
     /**
      * Get id
      *
@@ -137,8 +138,4 @@ class User
     {
         $this->avatar_id = $avatar_id;
     }
-
-
-
-
 }
