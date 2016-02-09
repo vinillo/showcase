@@ -1,20 +1,44 @@
 <?php
 
-namespace DashboardBundle\Entity;
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * User
+ *
+ * @ORM\Table(name="user")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
 class User
 {
     /**
      * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    /**
+     * @ORM\Column(name="username",type="string", length=64)
+     */
     private $username;
+    /**
+     * @ORM\Column(name="hash",type="string", length=64)
+     */
     private $hash;
+    /**
+     * @ORM\Column(name="email",type="string", length=64)
+     */
     private $email;
+    /**
+     * @ORM\Column(name="activated",type="integer", length=2)
+     */
     private $activated;
+    /**
+     * @ORM\Column(name="avatar_id",type="integer", length=11)
+     */
     private $avatar_id;
 
     /**
@@ -116,4 +140,3 @@ class User
 
 
 }
-
