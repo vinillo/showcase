@@ -25,15 +25,24 @@ class DashboardController extends Controller
         return $this->redirectToRoute('app_dashboard_dashboard');
 
     }
+
     /**
      * @Route("/account")
      */
-    public function accountAction()
-    {  $session = new Session();
+    public function accountAction(Request $request)
+    {
+        $session = new Session();
+
+        if ($request->getMethod() == 'POST'):
+
+            $comment = wordwrap($request->request->get('comment'), 3000, "<br>");
+
+        endif;
         $html = $this->container->get('templating')->render(
             'dashboard/account.html.twig',
             array(
-                'username' => $session->get("username")
+                'username' => $session->get("username"),
+                'comment' => $comment,
             )
         );
         return new Response($html);

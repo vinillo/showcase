@@ -251,9 +251,23 @@ img {
 #register_form {
     margin-top: 75px;
 }
+
 .li_error_msg {
     color: #C82829;
 }
+
 .li_success_msg {
     color: #2ECC71;
+}
+
+.comment_boxie {
+    max-width: 650px;
+    width: 100%;
+    background-color: #FFFFFF;
+    margin: 0 auto;
+    padding: 25px;
+    margin-bottom: 20px;
+    -webkit-border-radius: 7px 7px 7px 7px;
+    border-radius: 7px 7px 7px 7px;
+    border: solid #F0F0F0 20px;;
 }
