@@ -29,13 +29,16 @@
                      alt="dashboard hor line">
                 <form action="" method="post">
                     <ul class="ul_login">
-                        <li><input class="input_username" type="text" value="User Name" name="username"></li>
-                        <li><input class="input_password" type="password" value="Password" name="password"></li>
+                        {% if error is defined %}
+                        <li class="li_error_msg">Ongeldige gebruikersnaam en/of wachtwoord.</li>
+                        {% endif %}
+                        <li><input class="input_username" type="text" value="User Name" name="username" required></li>
+                        <li><input class="input_password" type="password" value="Password" name="password" required></li>
                     </ul>
 
                     <ul class="ul_login_actions">
                         <li class="li_remember"><input type="checkbox"> Remember my password</li>
-                        <li><input type="submit" value="Login" class="button_fancy"></li>
+                        <li><input type="submit" value="Login" name="submit_login" class="button_fancy"></li>
                     </ul>
                 </form>
             </div>
@@ -51,12 +54,15 @@
                 </ul>
                 <form action="" method="post">
                     <ul id="register_form">
+                        {% if error_register is defined %}
+                            <li class="li_error_msg">Vul alle velden in aub.</li>
+                        {% endif %}
                         <li class="register_heading_text">Email</li>
-                        <li><input class="input_register" type="email" value="" name="email_register"></li>
+                        <li><input class="input_register" type="email" value="" name="email_register" required></li>
                         <li class="register_heading_text">User Name</li>
-                        <li><input class="input_register" type="text" value="" name="username_register"></li>
+                        <li><input class="input_register" type="text" value="" name="username_register" required></li>
                         <li class="register_heading_text">Password</li>
-                        <li><input class="input_register" type="password" value="" name="password_register"></li>
+                        <li><input class="input_register" type="password" value="" name="password_register" required></li>
                         <li><input id="input_submit_register" type="submit" value="Register" name="submit_register">
                         </li>
                     </ul>
