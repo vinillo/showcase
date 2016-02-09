@@ -8,6 +8,8 @@
         <link href="{{ asset('dashboard/css/responsive.css') }}" rel="stylesheet"/>
     {% endblock %}
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700' rel='stylesheet' type='text/css'>
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script>tinymce.init({selector: 'textarea'});</script>
 </head>
 <body>
 <div id="bg_placeholder">
@@ -16,12 +18,19 @@
             <h1 class="dashboard_header_title_text">
                 <img id="account_dashboard_icon" src="{{ asset('dashboard/images/header_title_icon.jpg') }}"
                      alt="account dashboard icon">
-               Account</h1>
+                Account</h1>
         </div>
         <div id="dashboard_containter">
             <p class="block_text">
 
-        <h1>Hello {{ username }} ! - <a href="{{ asset('logout') }}">logout</a></h1>
+            <h3>Hello {{ username }} ! - <a href="{{ asset('logout') }}">logout</a></h3>
+
+            <div class="comment_boxie">{{ comment }}</div>
+            <form action="" method="post">
+
+                <textarea name="comment">hello</textarea>
+                <input type="submit" class="button_fancy" value="Comment">
+            </form>
             </p>
         </div>
     </div>
