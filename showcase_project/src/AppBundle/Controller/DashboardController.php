@@ -17,6 +17,30 @@ class DashboardController extends Controller
     }
 
     /**
+     * @Route("/comment_delete/{id}")
+     */
+    public function comment_deleteAction($id)
+    {
+        $session = new Session();
+        $em = $this->getDoctrine()->getEntityManager();
+        $comment = $em->getRepository('AppBundle:Comment')->find($id);
+        $em->remove($comment);
+        $em->flush();
+        return $this->redirectToRoute('app_dashboard_account');
+    }
+
+    /**
+     * @Route("/comment_delete_all")
+     */
+    public function comment_delete_allAction()
+    {
+        $session = new Session();
+        $em = $this->getDoctrine()->getEntityManager();
+        $query = $em->createQuery('DELETE AppBundle:Comment');
+        $query->execute();
+        return $this->redirectToRoute('app_dashboard_account');
+    }
+    /**
      * @Route("/logout")
      */
     public function logoutAction()
@@ -24,35 +48,47 @@ class DashboardController extends Controller
         $session = new Session();
         $session->invalidate();
         return $this->redirectToRoute('app_dashboard_dashboard');
-
     }
-
     /**
      * @Route("/account")
      */
     public function accountAction(Request $request)
     {
         $session = new Session();
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Comment');
+        $query = $repository->createQueryBuilder('t')
+            ->orderBy('t.id', 'DESC')
+            ->setMaxResults(5)
+            ->getQuery();
+
+        $result = $query->getResult();
+        $comment_data = $result;
 
         if ($request->getMethod() == 'POST'):
             $comment = new comment();
-        $comment->setTitle("test");
-        $comment->setBody($request->request->get('comment'));
-
-
-
-
+            $comment->setTitle($request->request->get('title_comment'));
+            $comment->setBody($request->request->get('comment'));
+            $comment->setCreated(1);
+            $comment->setDisplay(1);
+            $comment->setLastEdited(1);
+            $comment->setOwner(1);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+            return $this->redirectToRoute('app_dashboard_account');
         endif;
+        $no_comments = $this->CheckCommentsExist();
+
         $html = $this->container->get('templating')->render(
             'dashboard/account.html.twig',
             array(
                 'username' => $session->get("username"),
-                'comment' => $comment,
+                'comment_data' => $comment_data,
+                'comment_exist' => $no_comments
             )
         );
         return new Response($html);
     }
-
     /**
      * @Route("/dashboard")
      */
@@ -135,5 +171,16 @@ class DashboardController extends Controller
         else:
             return false; // wrong cred
         endif;
+    }
+
+    public function CheckCommentsExist()
+    {
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Comment');
+        $query = $repository->createQueryBuilder('t')
+            ->select('count(t.id)')
+            ->getQuery();
+
+        $result = $query->getSingleScalarResult();
+        return $result;
     }
 }
