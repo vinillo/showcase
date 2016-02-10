@@ -9,7 +9,7 @@
     {% endblock %}
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700' rel='stylesheet' type='text/css'>
     <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-    <script>tinymce.init({selector: 'textarea'});</script>
+    <script>tinymce.init({selector: '.type_box'});</script>
 </head>
 <body>
 <div id="bg_placeholder">
@@ -21,15 +21,56 @@
                 Account</h1>
         </div>
         <div id="dashboard_containter">
+
             <p class="block_text">
 
             <h3>Hello {{ username }} ! - <a href="{{ asset('logout') }}">logout</a></h3>
 
-            <div class="comment_boxie">{{ comment }}</div>
-            <form action="" method="post">
 
-                <textarea name="comment">hello</textarea>
-                <input type="submit" class="button_fancy" value="Comment">
+            {% if comment_exist == 0 %}
+                <ul>
+                    <p class="comment_exist">
+                        Uh oh.. no comments exist yet!
+                    </p>
+                </ul>
+            {% endif %}
+            {% if comment_data is defined %}
+                <ul>
+
+                    {% for p in comment_data|raw %}
+                        <li class="comment_boxie_head">
+                            {{ p.title }}
+                            <a class="link_comment_delete" href="{{ asset('comment_delete/') }}{{ p.id }}">delete</a>
+                        </li>
+                        <li class="comment_boxie">
+                            {{ p.body|raw }}
+                        </li>
+                    {% endfor %}
+
+                </ul>
+            {% endif %}
+
+            {% if comment is defined %}
+                <textarea class="comment_boxie">{{ comment }}</textarea>
+            {% endif %}
+            <form action="" method="post">
+                {% if comment_msg is defined %}
+                    <ul>
+                        <li class="li_success_msg"> {{ comment_msg }}</li>
+                    </ul>
+                {% endif %}
+                <div id="comment_area">
+                    <ul>
+
+                        <li><input required type="text" value="title" name="title_comment" class="title_comment"></li>
+                    </ul>
+                    <textarea class="type_box" name="comment">text here..</textarea>
+                    {% if comment_exist > 0 %}
+                        <a class="button_fancy_delete_all" href="{{ asset('comment_delete_all') }}">delete all
+                            comments</a>
+                    {% endif %}
+                    <input type="submit" class="button_fancy" value="Comment">
+                </div>
             </form>
             </p>
         </div>
