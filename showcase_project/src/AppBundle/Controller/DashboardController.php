@@ -11,9 +11,11 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class DashboardController extends Controller
 {
+    private $session;
+
     public function __construct()
     {
-
+        $this->session = new Session();
     }
 
     /**
@@ -21,7 +23,7 @@ class DashboardController extends Controller
      */
     public function comment_deleteAction($id)
     {
-        $session = new Session();
+
         $em = $this->getDoctrine()->getEntityManager();
         $comment = $em->getRepository('AppBundle:Comment')->find($id);
         $em->remove($comment);
@@ -34,27 +36,29 @@ class DashboardController extends Controller
      */
     public function comment_delete_allAction()
     {
-        $session = new Session();
+
         $em = $this->getDoctrine()->getEntityManager();
         $query = $em->createQuery('DELETE AppBundle:Comment');
         $query->execute();
         return $this->redirectToRoute('app_dashboard_account');
     }
+
     /**
      * @Route("/logout")
      */
     public function logoutAction()
     {
-        $session = new Session();
-        $session->invalidate();
+
+        $this->session->invalidate();
         return $this->redirectToRoute('app_dashboard_dashboard');
     }
+
     /**
      * @Route("/account")
      */
     public function accountAction(Request $request)
     {
-        $session = new Session();
+
         $repository = $this->getDoctrine()->getRepository('AppBundle:Comment');
         $query = $repository->createQueryBuilder('t')
             ->orderBy('t.id', 'DESC')
@@ -82,20 +86,21 @@ class DashboardController extends Controller
         $html = $this->container->get('templating')->render(
             'dashboard/account.html.twig',
             array(
-                'username' => $session->get("username"),
+                'username' => $this->session->get("username"),
                 'comment_data' => $comment_data,
                 'comment_exist' => $no_comments
             )
         );
         return new Response($html);
     }
+
     /**
      * @Route("/dashboard")
      */
     public function dashboardAction(Request $request)
     {
-        $session = new Session();
-        if ($session->get('username')):
+
+        if ($this->session->get('username')):
             return $this->redirectToRoute('app_dashboard_account');
         endif;
         if ($request->getMethod() == 'POST'):
@@ -139,7 +144,7 @@ class DashboardController extends Controller
                 return new Response($html);
             else:
 
-                $session->set('username', $request->request->get('username'));
+                $this->session->set('username', $request->request->get('username'));
                 return $this->redirectToRoute('app_dashboard_account');
             endif;
         endif;
