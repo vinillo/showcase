@@ -37,9 +37,9 @@ class User
      */
     private $activated;
     /**
-     * @ORM\Column(name="avatar_id",type="integer", length=11)
+     * @ORM\Column(name="avatar_src",type="string", length=64)
      */
-    private $avatar_id;
+    private $avatar_src;
 
     /**
      * @param int $id
@@ -126,16 +126,17 @@ class User
     /**
      * @return mixed
      */
-    public function getAvatarId()
+    public function getAvatarSrc()
     {
-        return $this->avatar_id;
+        return $this->avatar_src;
     }
 
     /**
-     * @param mixed $avatar_id
+     * @param mixed $avatar_src
      */
-    public function setAvatarId($avatar_id)
+    public function setAvatarSrc($avatar_src)
     {
-        $this->avatar_id = $avatar_id;
+        $this->avatar_src = $avatar_src;
     }
+
 }

@@ -13,9 +13,9 @@
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="{{ asset('dashboard/js/dropzone.js') }}"></script>
     <script>
-        function removebg() {
+        function success(response) {
             $(".dropzone").css("background-image", "none");
-
+            $("#avatar_hidden").val(response);
         }
         function addbg() {
             $(".dropzone").css("background-image", "../images/upload_img.png)");
@@ -24,10 +24,13 @@
         Dropzone.options.myAwesomeDropzone = {
             maxFilesize: 10,
             acceptedFiles: "image/*",
-            success: removebg,
+            success: function(file, response){
+                success(response);
+
+            },
             error: addbg,
             accept: function (file, done) {
-                console.log("uploaded");
+                console.log("uploaded" + file);
                 done();
             },
             init: function () {
@@ -100,6 +103,7 @@
                         <li><input class="input_register" type="password" value="" name="password_register" required>
                         </li>
                         <li><input id="input_submit_register" type="submit" value="Register" name="submit_register">
+                            <input type="hidden" id="avatar_hidden" value="" name="avatar_src">
                         </li>
                     </ul>
                 </form>

@@ -23,7 +23,6 @@ class DashboardController extends Controller
      */
     public function comment_deleteAction($id)
     {
-
         $em = $this->getDoctrine()->getEntityManager();
         $comment = $em->getRepository('AppBundle:Comment')->find($id);
         $em->remove($comment);
@@ -36,7 +35,6 @@ class DashboardController extends Controller
      */
     public function comment_delete_allAction()
     {
-
         $em = $this->getDoctrine()->getEntityManager();
         $query = $em->createQuery('DELETE AppBundle:Comment');
         $query->execute();
@@ -48,7 +46,6 @@ class DashboardController extends Controller
      */
     public function logoutAction()
     {
-
         $this->session->invalidate();
         return $this->redirectToRoute('app_dashboard_dashboard');
     }
@@ -58,7 +55,6 @@ class DashboardController extends Controller
      */
     public function accountAction(Request $request)
     {
-
         $repository = $this->getDoctrine()->getRepository('AppBundle:Comment');
         $query = $repository->createQueryBuilder('t')
             ->orderBy('t.id', 'DESC')
@@ -87,6 +83,8 @@ class DashboardController extends Controller
             'dashboard/account.html.twig',
             array(
                 'username' => $this->session->get("username"),
+                'user_id' => $this->session->get("user_id"),
+                'avatar_src' => $this->session->get("avatar_src"),
                 'comment_data' => $comment_data,
                 'comment_exist' => $no_comments
             )
@@ -98,7 +96,7 @@ class DashboardController extends Controller
      */
     public function uploadProfileAction(Request $request)
     {
-        $target_dir = $this->get('kernel')->getRootDir()."/uploads/";
+        $target_dir =  $this->get('kernel')->getRootDir().'/..'."/web/uploads/";
         $target_file = $target_dir . basename($_FILES["file"]["name"]);
         $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
         if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
@@ -106,7 +104,7 @@ class DashboardController extends Controller
              die();
         }
             if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
-                return new Response();
+                return new Response($_FILES["file"]["name"]);
             } else {
                 die();
             }
@@ -136,7 +134,7 @@ class DashboardController extends Controller
                     $user->setHash($this->makeHash($request->request->get('username_register'), $request->request->get('password_register')));
                     $user->setEmail($request->request->get('email_register'));
                     $user->setActivated(0);
-                    $user->setAvatarId(1);
+                    $user->setAvatarSrc($request->request->get('avatar_src'));
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($user);
                     $em->flush();
@@ -162,6 +160,14 @@ class DashboardController extends Controller
             else:
 
                 $this->session->set('username', $request->request->get('username'));
+
+                $user_id = $this->getUserIdFor($this->session->get('username'));
+                $this->session->set('user_id',$user_id['id']);
+
+                $avatar_src = $this->getAvatarSrcFor($this->session->get('user_id'));
+                $this->session->set('avatar_src',$avatar_src['avatar_src']);
+
+
                 return $this->redirectToRoute('app_dashboard_account');
             endif;
         endif;
@@ -204,5 +210,26 @@ class DashboardController extends Controller
 
         $result = $query->getSingleScalarResult();
         return $result;
+    }
+
+    public function getUserIdFor($username)
+    {
+        $repository = $this->getDoctrine()->getRepository('AppBundle:User');
+        $query = $repository->createQueryBuilder('p')
+            ->select('p.id')
+            ->where('p.username = :username')
+            ->setParameter('username', $username)->getQuery();
+      return  $query->getSingleResult();
+
+    }
+    public function getAvatarSrcFor($user_id)
+    {
+        $repository = $this->getDoctrine()->getRepository('AppBundle:User');
+        $query = $repository->createQueryBuilder('p')
+            ->select('p.avatar_src')
+            ->where('p.id = :id')
+            ->setParameter('id', $user_id)->getQuery();
+        return  $query->getSingleResult();
+
     }
 }
