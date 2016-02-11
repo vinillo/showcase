@@ -179,7 +179,7 @@ img {
     margin: 10px;
     float: right;
     text-align: center;
-    line-height: 3;
+    line-height: 3.5;
     text-transform: capitalize;
 
 }
@@ -355,4 +355,5 @@ a {
     background-color: #F0F0F0;
     padding-top: 10px;
     border-top: solid 2px #CECECE;
+}
 }

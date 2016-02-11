@@ -11,9 +11,11 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class DashboardController extends Controller
 {
+    private $session;
+
     public function __construct()
     {
-
+        $this->session = new Session();
     }
 
     /**
@@ -21,7 +23,6 @@ class DashboardController extends Controller
      */
     public function comment_deleteAction($id)
     {
-        $session = new Session();
         $em = $this->getDoctrine()->getEntityManager();
         $comment = $em->getRepository('AppBundle:Comment')->find($id);
         $em->remove($comment);
@@ -34,27 +35,26 @@ class DashboardController extends Controller
      */
     public function comment_delete_allAction()
     {
-        $session = new Session();
         $em = $this->getDoctrine()->getEntityManager();
         $query = $em->createQuery('DELETE AppBundle:Comment');
         $query->execute();
         return $this->redirectToRoute('app_dashboard_account');
     }
+
     /**
      * @Route("/logout")
      */
     public function logoutAction()
     {
-        $session = new Session();
-        $session->invalidate();
+        $this->session->invalidate();
         return $this->redirectToRoute('app_dashboard_dashboard');
     }
+
     /**
      * @Route("/account")
      */
     public function accountAction(Request $request)
     {
-        $session = new Session();
         $repository = $this->getDoctrine()->getRepository('AppBundle:Comment');
         $query = $repository->createQueryBuilder('t')
             ->orderBy('t.id', 'DESC')
@@ -82,7 +82,9 @@ class DashboardController extends Controller
         $html = $this->container->get('templating')->render(
             'dashboard/account.html.twig',
             array(
-                'username' => $session->get("username"),
+                'username' => $this->session->get("username"),
+                'user_id' => $this->session->get("user_id"),
+                'avatar_src' => $this->session->get("avatar_src"),
                 'comment_data' => $comment_data,
                 'comment_exist' => $no_comments
             )
@@ -90,12 +92,30 @@ class DashboardController extends Controller
         return new Response($html);
     }
     /**
+     * @Route("/dashboard/upload_avatar")
+     */
+    public function uploadProfileAction(Request $request)
+    {
+        $target_dir =  $this->get('kernel')->getRootDir().'/..'."/web/uploads/";
+        $target_file = $target_dir . basename($_FILES["file"]["name"]);
+        $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+            && $imageFileType != "gif" ) {
+             die();
+        }
+            if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
+                return new Response($_FILES["file"]["name"]);
+            } else {
+                die();
+            }
+    }
+    /**
      * @Route("/dashboard")
      */
     public function dashboardAction(Request $request)
     {
-        $session = new Session();
-        if ($session->get('username')):
+
+        if ($this->session->get('username')):
             return $this->redirectToRoute('app_dashboard_account');
         endif;
         if ($request->getMethod() == 'POST'):
@@ -114,7 +134,7 @@ class DashboardController extends Controller
                     $user->setHash($this->makeHash($request->request->get('username_register'), $request->request->get('password_register')));
                     $user->setEmail($request->request->get('email_register'));
                     $user->setActivated(0);
-                    $user->setAvatarId(1);
+                    $user->setAvatarSrc($request->request->get('avatar_src'));
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($user);
                     $em->flush();
@@ -139,7 +159,15 @@ class DashboardController extends Controller
                 return new Response($html);
             else:
 
-                $session->set('username', $request->request->get('username'));
+                $this->session->set('username', $request->request->get('username'));
+
+                $user_id = $this->getUserIdFor($this->session->get('username'));
+                $this->session->set('user_id',$user_id['id']);
+
+                $avatar_src = $this->getAvatarSrcFor($this->session->get('user_id'));
+                $this->session->set('avatar_src',$avatar_src['avatar_src']);
+
+
                 return $this->redirectToRoute('app_dashboard_account');
             endif;
         endif;
@@ -182,5 +210,26 @@ class DashboardController extends Controller
 
         $result = $query->getSingleScalarResult();
         return $result;
+    }
+
+    public function getUserIdFor($username)
+    {
+        $repository = $this->getDoctrine()->getRepository('AppBundle:User');
+        $query = $repository->createQueryBuilder('p')
+            ->select('p.id')
+            ->where('p.username = :username')
+            ->setParameter('username', $username)->getQuery();
+      return  $query->getSingleResult();
+
+    }
+    public function getAvatarSrcFor($user_id)
+    {
+        $repository = $this->getDoctrine()->getRepository('AppBundle:User');
+        $query = $repository->createQueryBuilder('p')
+            ->select('p.avatar_src')
+            ->where('p.id = :id')
+            ->setParameter('id', $user_id)->getQuery();
+        return  $query->getSingleResult();
+
     }
 }
