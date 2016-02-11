@@ -93,7 +93,24 @@ class DashboardController extends Controller
         );
         return new Response($html);
     }
-
+    /**
+     * @Route("/dashboard/upload_avatar")
+     */
+    public function uploadProfileAction(Request $request)
+    {
+        $target_dir = $this->get('kernel')->getRootDir()."/uploads/";
+        $target_file = $target_dir . basename($_FILES["file"]["name"]);
+        $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+            && $imageFileType != "gif" ) {
+             die();
+        }
+            if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
+                return new Response();
+            } else {
+                die();
+            }
+    }
     /**
      * @Route("/dashboard")
      */

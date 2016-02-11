@@ -6,10 +6,39 @@
     <title>Dashboard</title>
     {% block stylesheets %}
         <link href="{{ asset('dashboard/css/main.css') }}" rel="stylesheet"/>
+        <link href="{{ asset('dashboard/css/dropzone.css') }}" rel="stylesheet"/>
         <link href="{{ asset('dashboard/css/responsive.css') }}" rel="stylesheet"/>
     {% endblock %}
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700' rel='stylesheet' type='text/css'>
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="{{ asset('dashboard/js/dropzone.js') }}"></script>
+    <script>
+        function removebg() {
+            $(".dropzone").css("background-image", "none");
+
+        }
+        function addbg() {
+            $(".dropzone").css("background-image", "../images/upload_img.png)");
+
+        }
+        Dropzone.options.myAwesomeDropzone = {
+            maxFilesize: 10,
+            acceptedFiles: "image/*",
+            success: removebg,
+            error: addbg,
+            accept: function (file, done) {
+                console.log("uploaded");
+                done();
+            },
+            init: function () {
+                this.on("addedfile", function () {
+                    if (this.files[1] != null) {
+                        this.removeFile(this.files[0]);
+                    }
+                });
+            }
+        };
+    </script>
 </head>
 <body>
 <div id="bg_placeholder">
@@ -49,9 +78,10 @@
                 <ul class="ul_register_header">
                     <li id="li_title_register_text">Register</li>
                     <li id="li_profile_image_text">
-                        <img id="thumb_profile_img" title="upload profile image"
-                             src="{{ asset('dashboard/images/upload_img.png') }}"
-                             alt="thumb profile image upload">
+                        <form action="dashboard/upload_avatar"
+                              class="dropzone"
+                              id="my-awesome-dropzone">
+                        </form>
                     </li>
                 </ul>
                 <form action="{{ asset('/dashboard') }}" method="post">
