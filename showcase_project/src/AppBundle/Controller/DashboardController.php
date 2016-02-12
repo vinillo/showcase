@@ -8,6 +8,12 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Comment;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Facebook\Facebook;
+use Facebook\FacebookRequest;
+use Facebook\FacebookResponse;
+use Facebook\Exceptions\FacebookSDKException;
+use Facebook\Exceptions\FacebookAuthorizationException;
+use Facebook\GraphNodes\GraphObject;
 
 class DashboardController extends Controller
 {
@@ -55,6 +61,9 @@ class DashboardController extends Controller
      */
     public function accountAction(Request $request)
     {
+        if (!($this->session->get('username'))):
+            return $this->redirectToRoute('app_dashboard_dashboard');
+        endif;
         $repository = $this->getDoctrine()->getRepository('AppBundle:Comment');
         $query = $repository->createQueryBuilder('t')
             ->orderBy('t.id', 'DESC')
@@ -68,7 +77,7 @@ class DashboardController extends Controller
             $comment = new comment();
             $comment->setTitle($request->request->get('title_comment'));
             $comment->setBody($request->request->get('comment'));
-            $comment->setCreated(1);
+            $comment->setCreated(time());
             $comment->setDisplay(1);
             $comment->setLastEdited(1);
             $comment->setOwner(1);
@@ -91,24 +100,27 @@ class DashboardController extends Controller
         );
         return new Response($html);
     }
+
     /**
      * @Route("/dashboard/upload_avatar")
      */
     public function uploadProfileAction(Request $request)
     {
-        $target_dir =  $this->get('kernel')->getRootDir().'/..'."/web/uploads/";
+        $target_dir = $this->get('kernel')->getRootDir() . '/..' . "/web/uploads/";
         $target_file = $target_dir . basename($_FILES["file"]["name"]);
-        $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-            && $imageFileType != "gif" ) {
-             die();
+        $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
+        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+            && $imageFileType != "gif"
+        ) {
+            die();
         }
-            if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
-                return new Response($_FILES["file"]["name"]);
-            } else {
-                die();
-            }
+        if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
+            return new Response($_FILES["file"]["name"]);
+        } else {
+            die();
+        }
     }
+
     /**
      * @Route("/dashboard")
      */
@@ -162,10 +174,10 @@ class DashboardController extends Controller
                 $this->session->set('username', $request->request->get('username'));
 
                 $user_id = $this->getUserIdFor($this->session->get('username'));
-                $this->session->set('user_id',$user_id['id']);
+                $this->session->set('user_id', $user_id['id']);
 
                 $avatar_src = $this->getAvatarSrcFor($this->session->get('user_id'));
-                $this->session->set('avatar_src',$avatar_src['avatar_src']);
+                $this->session->set('avatar_src', $avatar_src['avatar_src']);
 
 
                 return $this->redirectToRoute('app_dashboard_account');
@@ -219,9 +231,10 @@ class DashboardController extends Controller
             ->select('p.id')
             ->where('p.username = :username')
             ->setParameter('username', $username)->getQuery();
-      return  $query->getSingleResult();
+        return $query->getSingleResult();
 
     }
+
     public function getAvatarSrcFor($user_id)
     {
         $repository = $this->getDoctrine()->getRepository('AppBundle:User');
@@ -229,7 +242,54 @@ class DashboardController extends Controller
             ->select('p.avatar_src')
             ->where('p.id = :id')
             ->setParameter('id', $user_id)->getQuery();
-        return  $query->getSingleResult();
+        return $query->getSingleResult();
+
+    }
+
+    /**
+     * @Route("/logincallback")
+     */
+    public function loginCallbackAction()
+    {
+        $fb = new Facebook([
+            'app_id' => '763157317118688',
+            'app_secret' => '41ed5213e2e9161f8f31bf77c5e5c9e3',
+            'default_graph_version' => 'v2.5'
+        ]);
+
+        $helper = $fb->getJavaScriptHelper();
+
+        try {
+            $accessToken = $helper->getAccessToken();
+        } catch (FacebookSDKException $e) {
+            // When Graph returns an error
+            echo 'Graph returned an error: ' . $e->getMessage();
+        } catch (FacebookSDKException $e) {
+            // When validation fails or other local issues
+            echo 'Facebook SDK returned an error: ' . $e->getMessage();
+        }
+
+        if (isset($accessToken)) {
+            $fb->setDefaultAccessToken($accessToken);
+            try {
+                $requestProfile = $fb->get("/me?fields=name,email");
+                $profile = $requestProfile->getGraphNode()->asArray();
+            } catch (FacebookSDKException $e) {
+                // When Graph returns an error
+                echo 'Graph returned an error: ' . $e->getMessage();
+            } catch (FacebookSDKException $e) {
+                // When validation fails or other local issues
+                echo 'Facebook SDK returned an error: ' . $e->getMessage();
+            }
+            $this->session->set('username', $profile['name']);
+            $this->session->set('avatar_src', "anonymous.png");
+            return $this->redirectToRoute('app_dashboard_account');
+            exit;
+        } else {
+            echo "Unauthorized access!!!";
+            exit;
+        }
+
 
     }
 }
