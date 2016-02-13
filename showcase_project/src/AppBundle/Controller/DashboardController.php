@@ -87,11 +87,11 @@ class DashboardController extends Controller
             return $this->redirectToRoute('app_dashboard_account');
         endif;
         $no_comments = $this->CheckCommentsExist();
-        if(strpos($this->session->get("avatar_src"),'data:image/') !== false):
+        if (strpos($this->session->get("avatar_src"), 'data:image/') !== false):
             $avatar_data_img = $this->session->get("avatar_src");
-            else:
-                $avatar_data_img = "";
-                endif;
+        else:
+            $avatar_data_img = "";
+        endif;
 
         $html = $this->container->get('templating')->render(
             'dashboard/account.html.twig',
@@ -132,7 +132,6 @@ class DashboardController extends Controller
      */
     public function dashboardAction(Request $request)
     {
-
         if ($this->session->get('username')):
             return $this->redirectToRoute('app_dashboard_account');
         endif;
@@ -295,7 +294,5 @@ class DashboardController extends Controller
             echo "Unauthorized access!!!";
             exit;
         }
-
-
     }
 }
