@@ -87,6 +87,11 @@ class DashboardController extends Controller
             return $this->redirectToRoute('app_dashboard_account');
         endif;
         $no_comments = $this->CheckCommentsExist();
+        if(strpos($this->session->get("avatar_src"),'data:image/') !== false):
+            $avatar_data_img = $this->session->get("avatar_src");
+            else:
+                $avatar_data_img = "";
+                endif;
 
         $html = $this->container->get('templating')->render(
             'dashboard/account.html.twig',
@@ -94,6 +99,7 @@ class DashboardController extends Controller
                 'username' => $this->session->get("username"),
                 'user_id' => $this->session->get("user_id"),
                 'avatar_src' => $this->session->get("avatar_src"),
+                'avatar_data_img' => $avatar_data_img,
                 'comment_data' => $comment_data,
                 'comment_exist' => $no_comments
             )

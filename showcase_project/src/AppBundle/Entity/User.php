@@ -37,7 +37,7 @@ class User
      */
     private $activated;
     /**
-     * @ORM\Column(name="avatar_src",type="string", length=64)
+     * @ORM\Column(name="avatar_src",type="text")
      */
     private $avatar_src;
 
