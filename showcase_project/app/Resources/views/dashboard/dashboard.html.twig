@@ -57,13 +57,13 @@
     <script>
         function take_snapshot() {
             // take snapshot and get image data
-            Webcam.snap( function(data_uri) {
+            Webcam.snap(function (data_uri) {
                 // display results in page
                 $(".dropzone").css("background-image", "none");
                 $('.dropzone').empty();
-                $('.dropzone').prepend('<img id="webcam_pic" src="'+ data_uri +'" >');
+                $('.dropzone').prepend('<img id="webcam_pic" src="' + data_uri + '" >');
                 $("#avatar_hidden").val(data_uri);
-            } );
+            });
         }
     </script>
 </head>
@@ -107,7 +107,9 @@
                      alt="dashboard ver line">
                 <ul class="ul_register_header">
                     <li id="li_title_register_text">Register</li>
-                    <li id="cam_hide"><div id="my_camera"></div></li>
+                    <li id="cam_hide">
+                        <div id="my_camera"></div>
+                    </li>
                     <li id="li_profile_image_text">
                         <form action="dashboard/upload_avatar"
                               class="dropzone"
@@ -115,7 +117,7 @@
                         </form>
                     </li>
                     <li>
-                            <a href="#" onClick="take_snapshot(); return false;">use webcam</a>
+                        <a href="#" onClick="take_snapshot(); return false;">use webcam</a>
 
                     </li>
                 </ul>
@@ -151,7 +153,7 @@
         image_format: 'jpeg',
         jpeg_quality: 90
     });
-    Webcam.attach( '#my_camera' );
+    Webcam.attach('#my_camera');
 </script>
 </body>
 </html>
