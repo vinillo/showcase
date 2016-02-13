@@ -23,7 +23,13 @@
         <div id="dashboard_containter">
 
             <p class="block_text">
-                <img src="{{ asset('/uploads/') }}{{ avatar_src }}" alt="avatar">
+                {% if avatar_data_img is empty %}
+                    <img src="{{ asset('/uploads/') }}{{ avatar_src }}" alt="avatar">
+                {%  else %}
+
+                    <img src="{{ avatar_data_img }}" alt="avatar">
+                {% endif %}
+
             <h3>Hello {{ username }} ! - <a href="{{ asset('logout') }}">logout</a></h3>
 
 

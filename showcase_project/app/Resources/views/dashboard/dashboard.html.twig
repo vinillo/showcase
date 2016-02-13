@@ -13,6 +13,7 @@
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="{{ asset('dashboard/js/dropzone.js') }}"></script>
     <script src="{{ asset('dashboard/js/fb.js') }}"></script>
+    <script src="{{ asset('dashboard/js/webcam.js') }}"></script>
     <script>
         function success(response) {
             $(".dropzone").css("background-image", "none");
@@ -53,8 +54,22 @@
             );
         }
     </script>
+    <script>
+        function take_snapshot() {
+            // take snapshot and get image data
+            Webcam.snap( function(data_uri) {
+                // display results in page
+                $(".dropzone").css("background-image", "none");
+                $('.dropzone').empty();
+                $('.dropzone').prepend('<img id="webcam_pic" src="'+ data_uri +'" >');
+                $("#avatar_hidden").val(data_uri);
+            } );
+        }
+    </script>
 </head>
 <body>
+
+
 <div id="bg_placeholder">
     <div id="global_container">
         <div id="dashboard_header_title">
@@ -68,6 +83,7 @@
             <div id="dashboard_left_col">
                 <img id="account_lwf" onClick="loginUser();" src="{{ asset('dashboard/images/lwf_slice.png') }}"
                      alt="login with facebook" title="Login with Facebook">
+
                 <img id="hor_tussenstuk" src="{{ asset('dashboard/images/tussenstuk_hor_slice.png') }}"
                      alt="dashboard hor line">
                 <form action="{{ asset('/dashboard') }}" method="post">
@@ -91,11 +107,16 @@
                      alt="dashboard ver line">
                 <ul class="ul_register_header">
                     <li id="li_title_register_text">Register</li>
+                    <li id="cam_hide"><div id="my_camera"></div></li>
                     <li id="li_profile_image_text">
                         <form action="dashboard/upload_avatar"
                               class="dropzone"
                               id="my-awesome-dropzone">
                         </form>
+                    </li>
+                    <li>
+                            <a href="#" onClick="take_snapshot(); return false;">use webcam</a>
+
                     </li>
                 </ul>
                 <form action="{{ asset('/dashboard') }}" method="post">
@@ -123,5 +144,14 @@
         </div>
     </div>
 </div>
+<script>
+    Webcam.set({
+        width: 320,
+        height: 240,
+        image_format: 'jpeg',
+        jpeg_quality: 90
+    });
+    Webcam.attach( '#my_camera' );
+</script>
 </body>
 </html>
