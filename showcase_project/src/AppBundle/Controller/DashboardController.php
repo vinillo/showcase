@@ -58,9 +58,11 @@ class DashboardController extends Controller
 
     /**
      * @Route("/account")
+     * @Route("/account/{action}/{id}")
      */
-    public function accountAction(Request $request)
+    public function accountAction(Request $request, $action = 'get_app', $id = '1')
     {
+
         if (!($this->session->get('username'))):
             return $this->redirectToRoute('app_dashboard_dashboard');
         endif;
@@ -73,7 +75,7 @@ class DashboardController extends Controller
         $result = $query->getResult();
         $comment_data = $result;
 
-        if ($request->getMethod() == 'POST'):
+        if ($request->getMethod() == 'POST' && $request->get('comment_submit')):
             $comment = new comment();
             $comment->setTitle($request->request->get('title_comment'));
             $comment->setBody($request->request->get('comment'));
@@ -92,7 +94,26 @@ class DashboardController extends Controller
         else:
             $avatar_data_img = "";
         endif;
-
+        if(isset($action) && isset($id)):
+            //action=get_app&id=' . $id
+            $app_info = file_get_contents('http://localhost/hello/itsme.php');
+            $app_info = json_decode($app_info, true);
+            $html = $this->container->get('templating')->render(
+                'dashboard/account.html.twig',
+                array(
+                    'username' => $this->session->get("username"),
+                    'user_id' => $this->session->get("user_id"),
+                    'avatar_src' => $this->session->get("avatar_src"),
+                    'avatar_data_img' => $avatar_data_img,
+                    'comment_data' => $comment_data,
+                    'comment_exist' => $no_comments,
+                    'tag_title' => $app_info['title'],
+                    'tag_body' => $app_info['body'],
+                    'tag_created_by' => $app_info['created_by'],
+                )
+            );
+            return new Response($html);
+        else:
         $html = $this->container->get('templating')->render(
             'dashboard/account.html.twig',
             array(
@@ -105,6 +126,7 @@ class DashboardController extends Controller
             )
         );
         return new Response($html);
+                endif;
     }
 
     /**
@@ -250,7 +272,6 @@ class DashboardController extends Controller
         return $query->getSingleResult();
 
     }
-
     /**
      * @Route("/logincallback")
      */
