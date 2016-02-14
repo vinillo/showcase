@@ -10,6 +10,28 @@
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700' rel='stylesheet' type='text/css'>
     <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
     <script>tinymce.init({selector: '.type_box'});</script>
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script>
+       function update_tags() {
+         var tag_title =  $('#tag_title').val();
+         var tag_body =  $('#tag_body').val();
+         var tag_created_by =  $('#tag_created_by').val();
+           var formData = {update: "",title: tag_title, body: tag_body,created_by: tag_created_by};
+
+           $.ajax({
+               url: "http://localhost/hello/itsme.php",
+               type: "GET",
+               data: formData,
+               success: function (data, textStatus, jqXHR) {
+               },
+               error: function (jqXHR, textStatus, errorThrown) {
+
+               }
+           });
+           alert("tags updated. ajax parameters send to api");
+       }
+
+    </script>
 </head>
 <body>
 <div id="bg_placeholder">
@@ -22,7 +44,27 @@
         </div>
         <div id="dashboard_containter">
             <p class="block_text">
-                {% if avatar_data_img is empty %}
+<form action="" method="post">
+            <table id="motd">
+                <tr><h2>News message of the day</h2></tr>
+                <tr>
+                    <td>Title: </td><td><input type="text" id="tag_title" value="{{ tag_title }}" ></td>
+                </tr>
+                <tr>
+                    <td>Body: </td><td><input type="text" id="tag_body" value="{{ tag_body }}" ></td>
+                </tr>
+                <tr>
+                    <td>Created By: </td><td> <input type="text" id="tag_created_by" value="{{ tag_created_by }}" ></td>
+                </tr>
+                <tr>
+                    <td><input class="button_fancy" type="button" onclick="update_tags();" value="update tags by api"></td>
+                </tr>
+            </table>
+
+            </form>
+
+
+            {% if avatar_data_img is empty %}
                     <img src="{{ asset('/uploads/') }}{{ avatar_src }}" alt="avatar">
                 {% else %}
                     <img src="{{ avatar_data_img }}" alt="avatar">
@@ -66,7 +108,7 @@
                         <a class="button_fancy_delete_all" href="{{ asset('comment_delete_all') }}">delete all
                             comments</a>
                     {% endif %}
-                    <input type="submit" class="button_fancy" value="Comment">
+                    <input type="submit" class="button_fancy" name="comment_submit" value="Comment">
                 </div>
             </form>
             </p>
