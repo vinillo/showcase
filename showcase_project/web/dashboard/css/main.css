@@ -220,7 +220,6 @@ img {
 
 #li_profile_image_text {
     color: #a7a7a7;
-    float: right;
     padding-right: 5px;
     font-size: 14px;
     line-height: 0;
@@ -272,9 +271,6 @@ img {
 
 }
 
-#register_form {
-    margin-top: 75px;
-}
 
 .li_error_msg {
     color: #C82829;
@@ -316,9 +312,18 @@ img {
 
 .comment_exist {
     text-align: center;
-    magin: 0 auto;
+    max-width: 550px;
+    width: 100%;
+    margin: 0 auto;
     color: #C82829;
     font-size: 24px;
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
 }
 
 .comment_boxie_head a {
@@ -340,7 +345,7 @@ img {
     -webkit-border-radius: 3px 3px 3px 3px;
     border-radius: 3px 3px 3px 3px;
 
-    text-transform: uppercase;
+    text-transform: capitalize;
     color: #81afc5;
     font-size: 24px;
     border: solid 2px #81AFC5;
@@ -487,4 +492,71 @@ a {
 }
 #motd_quote blockquote p {
     display: inline;
+}
+.li_font_shiny_small {
+    font-size: 11px;
+    font-family: 'Open Sans', sans-serif;
+    color:#CCCCCC;
+}
+.li_font_shiny_big {
+
+    font-size: 14px;
+    font-family: 'Open Sans', sans-serif;
+    color:#CCCCCC;
+    padding: 2px;
+}
+.motd_body_text {
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
+    color:#004E8F;
+}
+.motd_header_text {
+    font-size: 11px;
+    font-family: 'Open Sans', sans-serif;
+    color:#CCCCCC;
+}
+.motd_created_by {
+    font-size: 12px;
+    font-family: 'Open Sans', sans-serif;
+    color:#695375;
+}
+.motd_by_text {
+    font-size: 12px;
+    font-family: 'Open Sans', sans-serif;
+    color:#695375;
+}
+
+.button_toggle_comments {
+    background-color: #62C2D3;
+    border: 0;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-border-radius: 7px 7px 7px 7px;
+    border-radius: 7px 7px 7px 7px;
+    width: 160px;
+    min-height: 50px;
+    margin: 10px;
+    text-align: center;
+    line-height: 3.5;
+    padding: 15px;
+    text-transform: capitalize;
+
+}
+
+.button_toggle_comments:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+#ul_toggle_comments {
+    max-width: 552px;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+}
+#clearfix_responsive_col {
+    display: none;
+    visibility: hidden;
+    height: 1px;
+    width: 100%;
+    clear: both;
 }

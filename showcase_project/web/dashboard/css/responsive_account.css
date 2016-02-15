@@ -21,7 +21,7 @@
         visibility: hidden;
     }
 
-    .comment_boxie_head, .comment_boxie, .title_comment, #section_motd, #section_motd input[type="text"], #section_motd textarea {
+    .comment_boxie_head, .comment_boxie, .title_comment, #section_motd, #section_motd input[type="text"], #section_motd textarea, #ul_toggle_comments, .ul_comment_overal, .ul_comment_title {
         padding-left: 0;
         margin-left: 0;
         margin-right: 0;

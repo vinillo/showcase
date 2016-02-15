@@ -226,7 +226,7 @@ class DashboardController extends Controller
                 $email = $this->getUserResultFor($this->session->get('username'))[0]['email'];
                 $this->session->set('email',  $email);
                 $created = $this->getUserResultFor($this->session->get('username'))[0]['created'];
-                $this->session->set('created', $created);
+                $this->session->set('created', date('D M j G:i:s ',$created));
 
 
                 return $this->redirectToRoute('app_dashboard_account');
@@ -351,7 +351,7 @@ class DashboardController extends Controller
             $this->session->set('user_id', $fb_user_id);
             $this->session->set('avatar_src',  $fb_avatar_src);
             $this->session->set('email',  $fb_email);
-            $this->session->set('created', $fb_created);
+            $this->session->set('created', date('D M j G:i:s ',$fb_created));
             $this->session->set('fb_login', true);
             return $this->redirectToRoute('app_dashboard_account');
         } else {
