@@ -30,7 +30,10 @@
 
                 }
             });
-            alert("tags updated. ajax parameters send to api");
+            $(".motd_header_text").html(tag_title);
+            $(".motd_body_text").html(tag_body);
+            $(".motd_created_by").html(tag_created_by);
+            $("#ul_rest_service").toggle();
         }
     </script>
     <script>
@@ -38,6 +41,15 @@
             $("#ul_rest_service").css("display", "none");
             $("#toggle_rest_box").click(function () {
                 $("#ul_rest_service").toggle();
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#comment_toggle").css("display", "none");
+            $(".button_toggle_comments").click(function () {
+                $("#comment_toggle").toggle();
+                $("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
             });
         });
     </script>
@@ -55,15 +67,18 @@
         <div id="dashboard_containter">
             <p class="block_text">
                 <div id="motd_quote">
-                    <blockquote>{{ tag_body }} <a href="#" title="edit motd" onclick="return false;"
+                    <blockquote><span class="motd_header_text">{{ tag_title }}</span> <span class="motd_body_text">{{ tag_body }}</span> <span class="motd_by_text">by </span><span class="motd_created_by">{{ tag_created_by }}</span> <a href="#" title="edit motd" onclick="return false;"
                                                   id="toggle_rest_box"><i class="fa fa-cog fa -2x"></i></a>
             <p></p></blockquote>
 
         </div>
         <section id="section_motd">
             <ul id="ul_rest_service">
+                <li class="li_font_shiny_big">Title</li>
                 <li><input required type="text" id="tag_title" value="{{ tag_title }}"></li>
+                <li class="li_font_shiny_big">Message</li>
                 <li><textarea required type="text" id="tag_body">{{ tag_body }}</textarea></li>
+                <li class="li_font_shiny_big">Created By</li>
                 <li><input required type="text" id="tag_created_by" value="{{ tag_created_by }}"></li>
                 <li class="li_not_inline"><a class="a_button_fancy" href="#"
                                              onclick="update_tags(); return false;">Update</a></li>
@@ -86,14 +101,17 @@
                 </ul>
                 <ul>
                     {% if fb_bool is empty %}
-                    <li>Welcome</li>
-                    <li><i class="fa fa-cog fa -2x"></i> {{ username }} ! - <a href="{{ asset('logout') }}">logout</a>
-                    </li>
-                    {% else %}
-                        <li>Welcome</li>
-                        <li><i class="fa fa-cog fa -2x"></i> {{ fb_real_name }} ! - <a href="{{ asset('logout') }}">logout</a>
+                        <li><h2>Welcome {{ username }}! <a title="logout user"  href="{{ asset('logout') }}"><i
+                                            class="fa fa-sign-out"></i></a></h2></li>
+                        <li><i class="fa fa-cog fa -2x"></i> ! -
                         </li>
+                    {% else %}
+                        <li><h2>Welcome {{ fb_real_name }}! <a title="logout user" href="{{ asset('logout') }}"><i
+                                            class="fa fa-sign-out"></i></a></h2></li>
                     {% endif %}
+                    <li class="li_font_shiny_small"><i class="fa fa-cog fa -2x"></i> user id: {{ user_id }}</li>
+                    <li class="li_font_shiny_small"><i class="fa fa-cog fa -2x"></i> user email: {{ email }}</li>
+                    <li class="li_font_shiny_small"><i class="fa fa-cog fa -2x"></i> account created: {{ created }}</li>
                 </ul>
 
             </div>
@@ -103,12 +121,17 @@
         {% if comment_exist == 0 %}
             <ul>
                 <p class="comment_exist">
-                    Uh oh.. no comments exist yet!
+                    <i class="fa fa-exclamation"></i>
+                     Uh oh.. no comments exist yet!
                 </p>
             </ul>
+
         {% endif %}
+        <ul id="ul_toggle_comments">
+            <li><a class="button_toggle_comments" href="#" onclick="toggle_comments();" onclick="return false;">Toggle Comments</a></li>
+        </ul>
         {% if comment_data is defined %}
-            <ul>
+            <ul class="ul_comment_overal">
                 {% for p in comment_data|raw %}
                     <li class="comment_boxie_head">
                         {{ p.title }}
@@ -121,6 +144,7 @@
                 {% endfor %}
             </ul>
         {% endif %}
+        <section id="comment_toggle">
         {% if comment is defined %}
             <textarea class="comment_boxie">{{ comment }}</textarea>
         {% endif %}
@@ -131,7 +155,7 @@
                 </ul>
             {% endif %}
             <div id="comment_area">
-                <ul>
+                <ul class="ul_comment_title">
                     <li><input required type="text" value="title" name="title_comment" class="title_comment"></li>
                 </ul>
                 <textarea class="type_box" name="comment">text here..</textarea>
@@ -143,6 +167,7 @@
             </div>
         </form>
         </p>
+        </section>
     </div>
 </div>
 </div>
