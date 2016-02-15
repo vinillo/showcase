@@ -1,15 +1,15 @@
-*Installation - Basic json rest service for data
+* Installation - Basic json rest service for data
 
 
-*composer install
-*->set up db
-*php bin/console doctrine:schema:update --force
-*install backups/hello/itsme.php in root (config db inside itsme.php);
-*run backups/sql_rest_api.sql in db 
-*run /showcase_project/run.bat
+* composer install
+* ->set up db
+* php bin/console doctrine:schema:update --force
+* install backups/hello/itsme.php in root (config db inside itsme.php);
+* run backups/sql_rest_api.sql in db 
+* run /showcase_project/run.bat
  
-*browse http://localhost:8000/
-*done
+* browse http://localhost:8000/
+* done
  
 * Symfony3 framework
 * Doctrine ORM
