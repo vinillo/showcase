@@ -55,7 +55,8 @@
         <div id="dashboard_containter">
             <p class="block_text">
                 <div id="motd_quote">
-                    <blockquote>{{ tag_body }} <a href="#" title="edit motd" onclick="return false;" id="toggle_rest_box"><i class="fa fa-cog fa -2x"></i></a>
+                    <blockquote>{{ tag_body }} <a href="#" title="edit motd" onclick="return false;"
+                                                  id="toggle_rest_box"><i class="fa fa-cog fa -2x"></i></a>
             <p></p></blockquote>
 
         </div>
@@ -69,16 +70,30 @@
             </ul>
             <div id="news_message_body">
                 <ul id="ul_avatar_block">
-                    <li>Hello {{ username }} ! - <a href="{{ asset('logout') }}">logout</a></li>
+
                     <li id="li_avatar">
-                        {% if avatar_data_img is empty %}
-                            <img src="{{ asset('/uploads/') }}{{ avatar_src }}" alt="avatar">
+                        {% if fb_bool is empty %}
+                            {% if avatar_data_img is empty %}
+                                <img src="{{ asset('/uploads/') }}{{ avatar_src }}" alt="avatar">
+                            {% else %}
+                                <img src="{{ avatar_data_img }}" alt="avatar">
+                            {% endif %}
                         {% else %}
-                            <img src="{{ avatar_data_img }}" alt="avatar">
+                            <img src="https://graph.facebook.com/{{ avatar_src }}/picture?type=normal" alt="avatar">
                         {% endif %}
+
                     </li>
-
-
+                </ul>
+                <ul>
+                    {% if fb_bool is empty %}
+                    <li>Welcome</li>
+                    <li><i class="fa fa-cog fa -2x"></i> {{ username }} ! - <a href="{{ asset('logout') }}">logout</a>
+                    </li>
+                    {% else %}
+                        <li>Welcome</li>
+                        <li><i class="fa fa-cog fa -2x"></i> {{ fb_real_name }} ! - <a href="{{ asset('logout') }}">logout</a>
+                        </li>
+                    {% endif %}
                 </ul>
 
             </div>
@@ -97,7 +112,8 @@
                 {% for p in comment_data|raw %}
                     <li class="comment_boxie_head">
                         {{ p.title }}
-                        <a title="delete comment" class="link_comment_delete" href="{{ asset('comment_delete/') }}{{ p.id }}"><i class="fa fa-trash fa-2x"></i></a>
+                        <a title="delete comment" class="link_comment_delete"
+                           href="{{ asset('comment_delete/') }}{{ p.id }}"><i class="fa fa-trash fa-2x"></i></a>
                     </li>
                     <li class="comment_boxie">
                         {{ p.body|raw }}

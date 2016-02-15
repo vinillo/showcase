@@ -32,6 +32,9 @@
     .link_comment_delete i {
         margin-right: 5px;
     }
+    #ul_rest_service {
+        border: 0;
+    }
 
 }
 
