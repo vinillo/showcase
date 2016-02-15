@@ -40,6 +40,10 @@ class User
      * @ORM\Column(name="avatar_src",type="text")
      */
     private $avatar_src;
+    /**
+     * @ORM\Column(name="created",type="integer", length=11)
+     */
+    private $created;
 
     /**
      * @param int $id
@@ -137,6 +141,22 @@ class User
     public function setAvatarSrc($avatar_src)
     {
         $this->avatar_src = $avatar_src;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * @param mixed $created
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
     }
 
 }
