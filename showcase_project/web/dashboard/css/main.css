@@ -34,7 +34,7 @@ img {
     position: absolute;
     left: 0;
     right: 0;
-    margin-top: 25%;
+    margin-top: 21%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -101,6 +101,9 @@ img {
     float: left;
     width: 50%;
     min-height: 250px;
+    background-image: url(../images/bg_ver_tussen.png);
+    background-repeat: repeat-y;
+    background-color: #F5F5F5;
 }
 
 #dashboard_right_col {
@@ -157,10 +160,10 @@ img {
     background-color: #00a0bc;
     border: 0;
     color: #FFFFFF;
-    font-size: 14px;
+    font-size: 25px;
     -webkit-border-radius: 7px 7px 7px 7px;
     border-radius: 7px 7px 7px 7px;
-    width: 160px;
+    width: 160px  !important;
     min-height: 50px;
     margin: 10px;
     float: right;
@@ -200,7 +203,8 @@ img {
 
 #hor_tussenstuk {
     margin-left: 20px;
-    margin-top: 25px;
+    margin-top: 70px;
+    margin-bottom: 46px;
 }
 
 #ver_tussenstuk {
@@ -208,21 +212,15 @@ img {
     margin-top: 35px;
 }
 
-.ul_register_header li {
-    display: inline;
-}
 
-#li_title_register_text {
-    color: #8a8a8a;
-    font-weight: bold;
 
-}
 
 #li_profile_image_text {
-    color: #a7a7a7;
-    padding-right: 5px;
     font-size: 14px;
-    line-height: 0;
+    width: 98px;
+    height: 103px;
+
+
 }
 
 #thumb_profile_img:hover {
@@ -232,7 +230,7 @@ img {
 
 .register_heading_text {
     color: #a1a1a1;
-    font-weight: bold;
+    padding-top: 2px;
     padding-bottom: 5px;
 
 }
@@ -246,7 +244,6 @@ img {
     border-radius: 7px 7px 7px 7px;
     width: 160px;
     min-height: 50px;
-    float: right;
     margin-top: 10px;
     margin-right: 5px;
 }
@@ -363,6 +360,7 @@ a {
 
 #cam_hide {
     display: none;
+    visibility: hidden;
 
 }
 
@@ -559,4 +557,50 @@ a {
     height: 1px;
     width: 100%;
     clear: both;
+}
+#ul_avatar_camera {
+    max-width: 400px;
+    width: 100%;
+    min-height: auto;
+    margin-bottom: 20px;
+}
+#ul_avatar_camera li {
+    float: right;
+}
+#clearfix_avatar_register {
+    clear: both;
+    height: 20px;
+    max-width: 100%;
+
+}
+#li_profile_image_text {
+    margin-right: 20px;
+}
+#li_title_register_text {
+    margin: 0 auto;
+    color: #8a8a8a;
+    font-weight: bold;
+    float:left !important;
+    width: 100%;
+}
+#li_camera_upload {
+    margin-right: 50px;
+}
+#webcam_pic {
+    width: 98px;
+    height: 103px;
+}
+.dropzone {
+   left:50% !important;
+    margin-right: 50px;
+    float: inherit !important;
+}
+.upload_text {
+    color: #676767;
+    font-size: 11px;
+
+}
+.upload_text:hover {
+    color:#8698BD;
+
 }

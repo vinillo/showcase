@@ -220,7 +220,7 @@ class DashboardController extends Controller
 
                 $this->session->set('username', $request->request->get('username'));
                 $user_id = $this->getUserResultFor($this->session->get('username'))[0]['id'];
-                $this->session->set('user_id', $user_id['id']);
+                $this->session->set('user_id', $user_id);
                 $avatar_src = $this->getUserResultFor($this->session->get('username'))[0]['avatar_src'];
                 $this->session->set('avatar_src', $avatar_src);
                 $email = $this->getUserResultFor($this->session->get('username'))[0]['email'];
