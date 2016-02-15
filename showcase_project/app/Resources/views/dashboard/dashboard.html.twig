@@ -14,6 +14,7 @@
     <script src="{{ asset('dashboard/js/dropzone.js') }}"></script>
     <script src="{{ asset('dashboard/js/fb.js') }}"></script>
     <script src="{{ asset('dashboard/js/webcam.js') }}"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <script>
         function success(response) {
             $(".dropzone").css("background-image", "none");
@@ -89,7 +90,7 @@
                 <form action="{{ asset('/dashboard') }}" method="post">
                     <ul class="ul_login">
                         {% if error is defined %}
-                            <li class="li_error_msg">Ongeldige gebruikersnaam en/of wachtwoord.</li>
+                            <li class="li_error_msg"><i class="fa fa-exclamation"></i> Ongeldige gebruikersnaam en/of wachtwoord.</li>
                         {% endif %}
                         <li><input class="input_username" type="text" value="User Name" name="username" required></li>
                         <li><input class="input_password" type="password" value="Password" name="password" required>
@@ -102,6 +103,7 @@
                     </ul>
                 </form>
             </div>
+            <div id="clearfix_responsive_col"></div>
             <div id="dashboard_right_col">
                 <img id="ver_tussenstuk" src="{{ asset('dashboard/images/tussenstuk_ver_slice.png') }}"
                      alt="dashboard ver line">
@@ -117,7 +119,8 @@
                         </form>
                     </li>
                     <li>
-                        <a href="#" onClick="take_snapshot(); return false;">use webcam</a>
+                        <a href="#" onClick="take_snapshot(); return false;"><i class="fa fa-camera"></i>
+                        </a>
                     </li>
                 </ul>
                 <form action="{{ asset('/dashboard') }}" method="post">

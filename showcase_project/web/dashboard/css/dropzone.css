@@ -170,10 +170,10 @@
     box-sizing: border-box; }
 
 .dropzone {
-    min-height: 150px;
     background-image: url(../images/upload_img.png);
     height: 103px;
-    width: 98px;
+    max-width: 98px;
+    width: 100%;
     background-repeat: no-repeat;
 
 }
@@ -386,3 +386,4 @@
     border-bottom: 6px solid #be2626; }
 .dropzone {
     margin-right: 50px;
+}

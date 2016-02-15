@@ -1,7 +1,11 @@
 @media screen and (max-width: 840px) {
-    #account_lwf, .input_password, .input_username, .ul_login, #hor_tussenstuk {
-        padding: 0;
-        margin: 0;
+.input_password, .input_username, .ul_login, #hor_tussenstuk, .button_fancy, .ul_login_actions, input ,#register_form {
+        padding-left: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-right: 0 !important;
+        max-width: 95% !important;
+        width: 95% !important;
     }
 
     #dashboard_left_col {
@@ -16,10 +20,22 @@
         width: auto;
     }
 
-    #hor_tussenstuk {
+    #hor_tussenstuk, #ver_tussenstuk {
         display: none;
         visibility: hidden;
     }
+    #clearfix_responsive_col {
+        visibility: inherit;
+        display: inherit;
+    }
+#account_lwf  {
+    max-width: 290px; !important;
+    width: 90% !important;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-right: 0 !important
+  }
 }
 
 img {

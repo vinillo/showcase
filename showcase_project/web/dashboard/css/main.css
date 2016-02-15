@@ -220,7 +220,6 @@ img {
 
 #li_profile_image_text {
     color: #a7a7a7;
-    float: right;
     padding-right: 5px;
     font-size: 14px;
     line-height: 0;
@@ -272,9 +271,6 @@ img {
 
 }
 
-#register_form {
-    margin-top: 75px;
-}
 
 .li_error_msg {
     color: #C82829;
@@ -556,4 +552,11 @@ a {
     width: 100%;
     text-align: center;
     margin: 0 auto;
+}
+#clearfix_responsive_col {
+    display: none;
+    visibility: hidden;
+    height: 1px;
+    width: 100%;
+    clear: both;
 }
