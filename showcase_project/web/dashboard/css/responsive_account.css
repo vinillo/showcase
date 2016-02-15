@@ -21,7 +21,7 @@
         visibility: hidden;
     }
 
-    .comment_boxie_head, .comment_boxie, .title_comment, #section_motd, #section_motd input[type="text"], #section_motd textarea, #ul_toggle_comments, .ul_comment_overal, .ul_comment_title {
+    .comment_boxie_head, .comment_boxie, .title_comment, #section_motd, #section_motd input[type="text"], #section_motd textarea, #ul_toggle_comments, .ul_comment_overal, .ul_comment_title, .comment_exist {
         padding-left: 0;
         margin-left: 0;
         margin-right: 0;
@@ -32,12 +32,12 @@
     .link_comment_delete i {
         margin-right: 5px;
     }
+
     #ul_rest_service {
         border: 0;
     }
 
 }
-
 img {
     max-width: 100%;
     height: auto;
