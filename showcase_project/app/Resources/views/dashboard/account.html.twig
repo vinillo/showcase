@@ -5,35 +5,45 @@
     <title>Account</title>
     {% block stylesheets %}
         <link href="{{ asset('dashboard/css/main.css') }}" rel="stylesheet"/>
-        <link href="{{ asset('dashboard/css/responsive.css') }}" rel="stylesheet"/>
+        <link href="{{ asset('dashboard/css/responsive_account.css') }}" rel="stylesheet"/>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     {% endblock %}
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700' rel='stylesheet' type='text/css'>
     <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
     <script>tinymce.init({selector: '.type_box'});</script>
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <script>
-       function update_tags() {
-         var tag_title =  $('#tag_title').val();
-         var tag_body =  $('#tag_body').val();
-         var tag_created_by =  $('#tag_created_by').val();
-           var formData = {update: "",title: tag_title, body: tag_body,created_by: tag_created_by};
+        function update_tags() {
+            var tag_title = $('#tag_title').val();
+            var tag_body = $('#tag_body').val();
+            var tag_created_by = $('#tag_created_by').val();
+            var formData = {update: "", title: tag_title, body: tag_body, created_by: tag_created_by};
 
-           $.ajax({
-               url: "http://localhost/hello/itsme.php",
-               type: "GET",
-               data: formData,
-               success: function (data, textStatus, jqXHR) {
-               },
-               error: function (jqXHR, textStatus, errorThrown) {
+            $.ajax({
+                url: "http://localhost/hello/itsme.php",
+                type: "GET",
+                data: formData,
+                success: function (data, textStatus, jqXHR) {
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
 
-               }
-           });
-           alert("tags updated. ajax parameters send to api");
-       }
-
+                }
+            });
+            alert("tags updated. ajax parameters send to api");
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#ul_rest_service").css("display", "none");
+            $("#toggle_rest_box").click(function () {
+                $("#ul_rest_service").toggle();
+            });
+        });
     </script>
 </head>
 <body>
+
 <div id="bg_placeholder">
     <div id="global_container">
         <div id="dashboard_header_title">
@@ -44,76 +54,81 @@
         </div>
         <div id="dashboard_containter">
             <p class="block_text">
-<form action="" method="post">
-            <table id="motd">
-                <tr><h2>News message of the day</h2></tr>
-                <tr>
-                    <td>Title: </td><td><input type="text" id="tag_title" value="{{ tag_title }}" ></td>
-                </tr>
-                <tr>
-                    <td>Body: </td><td><input type="text" id="tag_body" value="{{ tag_body }}" ></td>
-                </tr>
-                <tr>
-                    <td>Created By: </td><td> <input type="text" id="tag_created_by" value="{{ tag_created_by }}" ></td>
-                </tr>
-                <tr>
-                    <td><input class="button_fancy" type="button" onclick="update_tags();" value="update tags by api"></td>
-                </tr>
-            </table>
+                <div id="motd_quote">
+                    <blockquote>{{ tag_body }} <a href="#" title="edit motd" onclick="return false;" id="toggle_rest_box"><i class="fa fa-cog fa -2x"></i></a>
+            <p></p></blockquote>
 
-            </form>
-
-
-            {% if avatar_data_img is empty %}
-                    <img src="{{ asset('/uploads/') }}{{ avatar_src }}" alt="avatar">
-                {% else %}
-                    <img src="{{ avatar_data_img }}" alt="avatar">
-                {% endif %}
-            <h3>Hello {{ username }} ! - <a href="{{ asset('logout') }}">logout</a></h3>
-            {% if comment_exist == 0 %}
-                <ul>
-                    <p class="comment_exist">
-                        Uh oh.. no comments exist yet!
-                    </p>
-                </ul>
-            {% endif %}
-            {% if comment_data is defined %}
-                <ul>
-                    {% for p in comment_data|raw %}
-                        <li class="comment_boxie_head">
-                            {{ p.title }}
-                            <a class="link_comment_delete" href="{{ asset('comment_delete/') }}{{ p.id }}">delete</a>
-                        </li>
-                        <li class="comment_boxie">
-                            {{ p.body|raw }}
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-            {% if comment is defined %}
-                <textarea class="comment_boxie">{{ comment }}</textarea>
-            {% endif %}
-            <form action="" method="post">
-                {% if comment_msg is defined %}
-                    <ul>
-                        <li class="li_success_msg"> {{ comment_msg }}</li>
-                    </ul>
-                {% endif %}
-                <div id="comment_area">
-                    <ul>
-                        <li><input required type="text" value="title" name="title_comment" class="title_comment"></li>
-                    </ul>
-                    <textarea class="type_box" name="comment">text here..</textarea>
-                    {% if comment_exist > 0 %}
-                        <a class="button_fancy_delete_all" href="{{ asset('comment_delete_all') }}">delete all
-                            comments</a>
-                    {% endif %}
-                    <input type="submit" class="button_fancy" name="comment_submit" value="Comment">
-                </div>
-            </form>
-            </p>
         </div>
+        <section id="section_motd">
+            <ul id="ul_rest_service">
+                <li><input required type="text" id="tag_title" value="{{ tag_title }}"></li>
+                <li><textarea required type="text" id="tag_body">{{ tag_body }}</textarea></li>
+                <li><input required type="text" id="tag_created_by" value="{{ tag_created_by }}"></li>
+                <li class="li_not_inline"><a class="a_button_fancy" href="#"
+                                             onclick="update_tags(); return false;">Update</a></li>
+            </ul>
+            <div id="news_message_body">
+                <ul id="ul_avatar_block">
+                    <li>Hello {{ username }} ! - <a href="{{ asset('logout') }}">logout</a></li>
+                    <li id="li_avatar">
+                        {% if avatar_data_img is empty %}
+                            <img src="{{ asset('/uploads/') }}{{ avatar_src }}" alt="avatar">
+                        {% else %}
+                            <img src="{{ avatar_data_img }}" alt="avatar">
+                        {% endif %}
+                    </li>
+
+
+                </ul>
+
+            </div>
+        </section>
+
+
+        {% if comment_exist == 0 %}
+            <ul>
+                <p class="comment_exist">
+                    Uh oh.. no comments exist yet!
+                </p>
+            </ul>
+        {% endif %}
+        {% if comment_data is defined %}
+            <ul>
+                {% for p in comment_data|raw %}
+                    <li class="comment_boxie_head">
+                        {{ p.title }}
+                        <a title="delete comment" class="link_comment_delete" href="{{ asset('comment_delete/') }}{{ p.id }}"><i class="fa fa-trash fa-2x"></i></a>
+                    </li>
+                    <li class="comment_boxie">
+                        {{ p.body|raw }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% if comment is defined %}
+            <textarea class="comment_boxie">{{ comment }}</textarea>
+        {% endif %}
+        <form action="" method="post">
+            {% if comment_msg is defined %}
+                <ul>
+                    <li class="li_success_msg"> {{ comment_msg }}</li>
+                </ul>
+            {% endif %}
+            <div id="comment_area">
+                <ul>
+                    <li><input required type="text" value="title" name="title_comment" class="title_comment"></li>
+                </ul>
+                <textarea class="type_box" name="comment">text here..</textarea>
+                {% if comment_exist > 0 %}
+                    <a class="button_fancy_delete_all" href="{{ asset('comment_delete_all') }}">delete all
+                        comments</a>
+                {% endif %}
+                <input type="submit" class="button_fancy" name="comment_submit" value="Comment">
+            </div>
+        </form>
+        </p>
     </div>
+</div>
 </div>
 </body>
 </html>
