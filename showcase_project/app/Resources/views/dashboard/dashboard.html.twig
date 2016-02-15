@@ -69,8 +69,6 @@
     </script>
 </head>
 <body>
-
-
 <div id="bg_placeholder">
     <div id="global_container">
         <div id="dashboard_header_title">
@@ -90,7 +88,9 @@
                 <form action="{{ asset('/dashboard') }}" method="post">
                     <ul class="ul_login">
                         {% if error is defined %}
-                            <li class="li_error_msg"><i class="fa fa-exclamation"></i> Ongeldige gebruikersnaam en/of wachtwoord.</li>
+                            <li class="li_error_msg"><i class="fa fa-exclamation"></i> Ongeldige gebruikersnaam en/of
+                                wachtwoord.
+                            </li>
                         {% endif %}
                         <li><input class="input_username" type="text" value="User Name" name="username" required></li>
                         <li><input class="input_password" type="password" value="Password" name="password" required>
@@ -105,9 +105,9 @@
             </div>
             <div id="clearfix_responsive_col"></div>
             <div id="dashboard_right_col">
-                <img id="ver_tussenstuk" src="{{ asset('dashboard/images/tussenstuk_ver_slice.png') }}"
-                     alt="dashboard ver line">
-                <ul class="ul_register_header">
+
+
+                <ul id="ul_avatar_camera">
                     <li id="li_title_register_text">Register</li>
                     <li id="cam_hide">
                         <div id="my_camera"></div>
@@ -118,11 +118,17 @@
                               id="my-awesome-dropzone">
                         </form>
                     </li>
-                    <li>
-                        <a href="#" onClick="take_snapshot(); return false;"><i class="fa fa-camera"></i>
-                        </a>
+                </ul>
+                <ul>
+
+
+                    <li id="li_camera_upload">
+                        <a class="upload_text" href="#" onClick="take_snapshot(); return false;"><i
+                                    class="fa fa-camera"></i>
+                            upload profile image using webcam</a>
                     </li>
                 </ul>
+                <div id="clearfix_avatar_register"></div>
                 <form action="{{ asset('/dashboard') }}" method="post">
                     <ul id="register_form">
                         {% if error_register is defined %}

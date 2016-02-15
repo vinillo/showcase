@@ -1,11 +1,11 @@
 @media screen and (max-width: 840px) {
-.input_password, .input_username, .ul_login, #hor_tussenstuk, .button_fancy, .ul_login_actions, input ,#register_form {
+    .input_password, .input_username, .ul_login, #hor_tussenstuk, #ul_avatar_camera,.button_fancy, .ul_login_actions, input, #register_form, #li_profile_image_text, #li_profile_image_text, #li_camera_upload, #ul_avatar_camera li {
         padding-left: 0 !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
         padding-right: 0 !important;
         max-width: 95% !important;
-        width: 95% !important;
+        float: inherit;
     }
 
     #dashboard_left_col {
@@ -24,18 +24,40 @@
         display: none;
         visibility: hidden;
     }
+
     #clearfix_responsive_col {
         visibility: inherit;
         display: inherit;
     }
-#account_lwf  {
-    max-width: 290px; !important;
-    width: 90% !important;
-    padding-left: 0 !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    padding-right: 0 !important
-  }
+
+    #account_lwf {
+        max-width: 290px;
+    !important;
+        width: 90% !important;
+        padding-left: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-right: 0 !important
+    }
+    #li_title_register_text {
+        font-size: 30px;
+
+    }
+    .dropzone {
+        margin-top: 20%;
+        margin-bottom: 20%;
+
+    }
+    #li_profile_image_text{
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    .dashboard_header_title_text {
+        font-size: 16px;
+    }
+    #dashboard_left_col {
+        background-image: none;
+    }
 }
 
 img {
