@@ -29,5 +29,5 @@ Todo:
 * etc?
 
 * quicklinks:
-git remote add origin git@github.com:vinillo/showcase.git
-https://help.github.com/articles/generating-an-ssh-key/
+* git remote add origin git@github.com:vinillo/showcase.git
+* https://help.github.com/articles/generating-an-ssh-key/
