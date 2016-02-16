@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Account</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block stylesheets %}
         <link href="{{ asset('dashboard/css/main.css') }}" rel="stylesheet"/>
         <link href="{{ asset('dashboard/css/responsive_account.css') }}" rel="stylesheet"/>
@@ -161,7 +162,7 @@
                     <a class="button_fancy_delete_all" href="{{ asset('comment_delete_all') }}">delete all
                         comments</a>
                 {% endif %}
-                <input type="submit" class="button_fancy" name="comment_submit" value="Comment">
+                <input type="submit" class="button_fancy button_fancy_account_size" name="comment_submit" value="Comment">
             </div>
         </form>
         </p>
